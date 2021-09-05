@@ -11,8 +11,16 @@ main {
   flex: 1 0 auto;
 }
 
-/* Inline style for Social links taken from https://www.w3schools.com/css/css_inline-block.asp */
+/* Style for Card images */
+.card .card-image img {
+  height: 100%;
+}
 
+.card-image {
+  height: 125px;
+}
+
+/* Style for Social links taken from https://www.w3schools.com/css/css_inline-block.asp */
 .social {
   list-style-type: none;
   text-align: center; 
