@@ -24,19 +24,19 @@
                 <a href="#" data-target="mobile-demo" class="right sidenav-trigger"><i
                         class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
                     <li><a href="#">Genre</a></li>
                     <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Login</a></li>
+                    <li><a href="{{ url_for('login') }}">Login/Sign up</a></li>
                 </ul>
             </div>
         </nav>
 
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="#">Home</a></li>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
             <li><a href="#">Genre</a></li>
             <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Login</a></li>
+            <li><a href="{{ url_for('login') }}">Login/Sign up</a></li>
         </ul>
     </header>
 
