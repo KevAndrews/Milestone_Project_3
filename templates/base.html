@@ -10,9 +10,12 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
         integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     <style>
-        .hero-image {
+        .title {
             display: {{ display_image }};
         }
     </style>
@@ -25,23 +28,19 @@
         <!-- Used the Mobile Collapse Button navbar from https://materializecss.com/navbar.html -->
         <nav>
             <div class="nav-wrapper">
-                <a href="#!" class="left brand-logo">Game Reviews</a>
+                <a href="{{ url_for('index') }}" class="left brand-logo">Game Reviews</a>
                 <a href="#" data-target="mobile-demo" class="right sidenav-trigger"><i
                         class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="#">Genre</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="{{ url_for('login') }}">Login/Sign up</a></li>
+                    <li><a id="index" href="{{ url_for('index') }}">Home</a></li>
+                    <li><a id="login" href="{{ url_for('login') }}">Login/Sign up</a></li>
                 </ul>
             </div>
         </nav>
 
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="#">Genre</a></li>
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="{{ url_for('login') }}">Login/Sign up</a></li>
+            <li><a id="index" href="{{ url_for('index') }}">Home</a></li>
+            <li><a id="login" href="{{ url_for('login') }}">Login/Sign up</a></li>
         </ul>
     </header>
 
@@ -59,8 +58,8 @@
     </section>
 
     <!-- Mission Section contains the Mission Statement for the Site -->
-    <section class="hero-image">
-        <div class="hero-text">
+    <section class="title">
+        <div class="title-text">
             <h1 class="center-align">Welcome to Game Reviews</h1>
         </div>
     </section>
@@ -99,6 +98,10 @@
         integrity="sha512-NiWqa2rceHnN3Z5j6mSAvbwwg3tiwVNxiAQaaSMSXnRRDh5C2mk/+sKQRw8qjV1vN4nf8iK2a0b048PnHbyx+Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+        $("#{{request.endpoint}}").parent().addClass("active"); })
+    </script>
 </body>
 
 </html>
