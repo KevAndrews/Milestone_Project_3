@@ -6,6 +6,10 @@ body {
   margin: 0;
   padding: 0;
   background-color: #555;
+  background-image: url("../images/bg_img.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 main {
@@ -19,14 +23,8 @@ main {
 
 /* Hero image https://www.w3schools.com/cssref/tryit.asp?filename=trycss3_background_hero */
 .hero-image {
-  background-image: url("/w3images/photographer.jpg");
-  background-color: #cccccc;
+  background-color:rgba(0,0,0,0.5);;
   height: 500px;
-  width: 100%;
-  margin: 0;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   position: relative;
 }
 
@@ -57,7 +55,6 @@ main {
   margin-top: 25px;
 }
 
-
 /* Custom Code for Card images */
 .card .card-image img {
   height: 100%;
@@ -65,6 +62,23 @@ main {
 
 .card-image {
   height: 125px;
+}
+
+/* Custom Code for Cards */
+.card {
+  background-color: #211a1dff;
+}
+
+.card .card-reveal {
+  background-color: #211a1dff;
+}
+
+.card-image {
+  background-color: #fff;
+}
+
+.row .col {
+  padding: 0;
 }
 
 /* Style for Social links taken from https://www.w3schools.com/css/css_inline-block.asp */
@@ -89,23 +103,6 @@ main {
 /* Custom Code for Buttons */
 .btn {
   background-color: #211a1dff;
-}
-
-/* Custom Code for Cards */
-.card {
-  background-color: #211a1dff;
-}
-
-.card .card-reveal {
-  background-color: #211a1dff;
-}
-
-.card-image {
-  background-color: #fff;
-}
-
-.row .col {
-  padding: 0;
 }
 
 /* Custom Code for Footer */
