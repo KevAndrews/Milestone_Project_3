@@ -20,6 +20,15 @@ h1 {
   font-size: 3.5rem;
 }
 
+h3 {
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  border-bottom: 5px solid #FF570A;
+  width: 25%;
+  margin: 20px auto;
+  font-size: 1.75em;
+}
+
 /* Custom Code for Navbar */
 nav {
   font-family: 'Orbitron', sans-serif;
@@ -30,7 +39,7 @@ nav {
 }
 
 nav li:hover {
-  border-bottom: 1px solid #FF570A;
+  border-bottom: 2px solid #FF570A;
   background-color: rgba(0,0,0,0.6);
 }
 
@@ -43,7 +52,7 @@ nav ul li.active {
 }
 
 .active {
-  border-bottom: 1px solid #FF570A;
+  border-bottom: 2px solid #FF570A;
 }
 
 /* Custom Code for the Title text container */
