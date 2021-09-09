@@ -34,7 +34,8 @@ def index():
 
     return render_template("index.html", 
                             games=games_to_display,
-                            pagination=pagination)
+                            pagination=pagination,
+                            display_image = 'block')
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -63,7 +64,7 @@ def login():
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
 
-    return render_template("login.html")
+    return render_template("login.html", display_image = 'none')
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -96,7 +97,7 @@ def signup():
             flash("Passwords do not match")
             return redirect(url_for("signup"))
 
-    return render_template("signup.html")
+    return render_template("signup.html", display_image = 'none')
 
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
