@@ -30,7 +30,12 @@ nav {
 }
 
 nav li:hover {
-  text-decoration: underline;
+  border-bottom: 1px solid #FF570A;
+  background-color: rgba(0,0,0,0.6);
+}
+
+nav ul li.active {
+  background-color: rgba(0,0,0,0.6);
 }
 
 .sidenav {
@@ -38,7 +43,7 @@ nav li:hover {
 }
 
 .active {
-  text-decoration: underline;
+  border-bottom: 1px solid #FF570A;
 }
 
 /* Custom Code for the Title text container */
@@ -70,11 +75,15 @@ nav .brand-logo {
 }
 
 .pagination li.active {
-  background-color: #999;
+  background-color: #FF570A;
 }
 
 .pagination li a {
   color: white;
+}
+
+.pagination li a:hover {
+  background-color: #FF570A;
 }
 
 /* Custom code for game-display Section */
@@ -114,6 +123,10 @@ nav .brand-logo {
   font-family: 'Orbitron', sans-serif;
 }
 
+.activator {
+  cursor: pointer;
+}
+
 /* Style for Social links taken from https://www.w3schools.com/css/css_inline-block.asp */
 .social {
   list-style-type: none;
@@ -127,6 +140,10 @@ nav .brand-logo {
   color: white;
   font-size: 20px;
   padding: 0 20px 0 20px;
+}
+
+.social li i:hover {
+  color: #FF570A;
 }
 
 .social li i {
