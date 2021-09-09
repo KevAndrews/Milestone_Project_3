@@ -5,13 +5,19 @@ body {
   flex-direction: column;
   margin: 0;
   padding: 0;
+  background-color: #555;
 }
 
 main {
   flex: 1 0 auto;
 }
 
-/* Style for Card images */
+/* Custom Code for Navbar */
+.nav-wrapper{
+  background-color: #211a1dff;
+}
+
+/* Custom Code for Card images */
 .card .card-image img {
   height: 100%;
 }
@@ -39,7 +45,30 @@ main {
   color: white;
 }
 
-/* Footer Style */
+/* Custom Code for Buttons */
+.btn {
+  background-color: #211a1dff;
+}
+
+/* Custom Code for Cards */
+.card {
+  background-color: #211a1dff;
+}
+
+.card .card-reveal {
+  background-color: #211a1dff;
+}
+
+.card-image {
+  background-color: #fff;
+}
+
+.row .col {
+  padding: 0;
+}
+
+/* Custom Code for Footer */
 .page-footer {
   padding-top: 0;
+  background-color: #211a1dff;
 }

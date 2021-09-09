@@ -3,6 +3,7 @@ from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
+from flask_paginate import Pagination, get_page_parameter
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
@@ -20,8 +21,20 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def index():
+
+    per_page = 9
+
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+
     games = list(mongo.db.games.find())
-    return render_template("index.html", games=games)
+
+    games_to_display = display_games(games,page,per_page)
+
+    pagination = Pagination(page=page, per_page=per_page, total=len(games))
+
+    return render_template("index.html", 
+                            games=games_to_display,
+                            pagination=pagination)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -99,6 +112,29 @@ def profile(username):
 
     return redirect(url_for("login"))
 
+
+def display_games(game_list, curr_page, per_page):
+    """
+    Method to handle Pagination of games.
+    Give a list of games, the current page the user is on and 
+    the number of games to display it returns a list of games
+    """
+
+    next_index = 9
+
+    games_to_display = []
+
+    if curr_page > 1:
+        offset = (curr_page - 1) * per_page
+        if (offset + next_index) > len(game_list):
+            games_to_display = game_list[offset:]
+        else:
+            games_to_display = game_list[offset:next_index]
+    else:
+        offset = 0
+        games_to_display = game_list[offset:next_index]
+
+    return games_to_display
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

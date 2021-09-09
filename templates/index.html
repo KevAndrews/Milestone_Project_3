@@ -2,26 +2,11 @@
 {% block content %}
 
   <h3 class="light-blue-text text-darken-4 center-align">Home Page</h3>
-  <!-- Search Box Section -->
-  <section class="search-box">
-    <div class="row valign-wrapper center-align">
-      <div class="input-field col s12 m8">
-        <i class="fas fa-search prefix light-blue-text text-darken-4"></i>
-        <input type="text" name="query" id="query" minlength="3" class="validate" required>
-        <label for="query">Search Tasks</label>
-      </div>
-      <div class="col s12 m4">
-        <button type="submit" class="light-blue darken-1 btn text-shadow">
-          <i class="fas fa-search left"></i> Search
-        </button>
-      </div>
-    </div>
-  </section>
 
   {% if games|length > 0 %}
   <!-- Game Display Section -->
   <section class="game-display">
-
+    
     {% for game in games %}
       {% if loop.first or loop.index0 % 3 == 0 %}
         <div class="row">
@@ -33,14 +18,14 @@
             <img class="activator" src="{{ game.img_link }}" alt="Display image for {{ game.name }}">
           </div>
           <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4"><strong>{{ game.name }}</strong><i
+            <span class="card-title activator white-text"><strong>{{ game.name }}</strong><i
                 class="material-icons right">more_vert</i></span>
-            <p><u>{{ game.category_name }}</u></p>
+            <p class="white-text"><u>{{ game.category_name }}</u></p>
           </div>
           <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4"><strong>{{ game.name }}</strong><i
+            <span class="card-title white-text"><strong>{{ game.name }}</strong><i
                 class="material-icons right">close</i></span>
-            <p>{{ game.description }}</p>
+            <p class="white-text">{{ game.description }}</p>
           </div>
         </div>
       {% if loop.last or loop.index % 3 == 0 %}
@@ -49,5 +34,7 @@
     {% endfor %}
   </section>
   {% endif %}
+
+  {{ pagination.links }}
 
 {% endblock %}
