@@ -39,6 +39,19 @@ main {
   color: white;
 }
 
+/* Custom Code for pagination */
+.pagination {
+  text-align: center;
+}
+
+.pagination li.active {
+  background-color: #211a1dff;
+}
+
+.pagination li a {
+  color: #fff;
+}
+
 /* Custom Code for Card images */
 .card .card-image img {
   height: 100%;
