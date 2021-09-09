@@ -52,6 +52,12 @@ main {
   color: #fff;
 }
 
+/* Custom code for game-display Section */
+.game-display {
+  margin-top: 25px;
+}
+
+
 /* Custom Code for Card images */
 .card .card-image img {
   height: 100%;
