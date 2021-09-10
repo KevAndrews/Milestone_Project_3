@@ -166,11 +166,18 @@ nav .brand-logo {
 /* Custom Code for Buttons */
 .btn {
   background-color: #FF570A;
+  margin-bottom: 25px;
 }
 
 .btn:hover {
   background-color: #211a1dff;
 }
+
+/* Custom Code for input fields */
+.input-field {
+  margin-top: 25px;
+}
+
 
 /* Custom Code for Footer */
 .page-footer {
