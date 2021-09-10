@@ -29,6 +29,10 @@ h3 {
   font-size: 1.75em;
 }
 
+.link-text {
+  color: #FF570A;
+}
+
 /* Custom Code for Navbar */
 nav {
   font-family: 'Orbitron', sans-serif;
@@ -53,6 +57,23 @@ nav ul li.active {
 
 .active {
   border-bottom: 2px solid #FF570A;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]), 
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input.valid[type=password]:not(.browser-default),
+input.valid[type=text]:not(.browser-default) {
+  border-bottom: 1px solid #FF570A;
+  box-shadow: 0 1px 0 0 #f44336;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly])+label, input[type=password]:not(.browser-default):focus:not([readonly])+label {
+  color: #FF570A;
+  border: none;
+}
+
+input[type=text], input[type=password] {
+  color: white;
 }
 
 /* Custom Code for the Title text container */
