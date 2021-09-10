@@ -137,6 +137,7 @@ def display_games(game_list, curr_page, per_page):
 
     return games_to_display
 
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
