@@ -39,8 +39,8 @@ nav {
 }
 
 nav li:hover {
+  background-color: #FF570A;
   border-bottom: 2px solid #FF570A;
-  background-color: rgba(0,0,0,0.6);
 }
 
 nav ul li.active {
@@ -124,6 +124,10 @@ nav .brand-logo {
   background-color: white;
 }
 
+.card-content {
+  border-top: 3px solid #FF570A;
+}
+
 .row .col {
   padding: 0;
 }
@@ -161,6 +165,10 @@ nav .brand-logo {
 
 /* Custom Code for Buttons */
 .btn {
+  background-color: #FF570A;
+}
+
+.btn:hover {
   background-color: #211a1dff;
 }
 
