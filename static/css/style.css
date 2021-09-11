@@ -194,6 +194,10 @@ nav .brand-logo {
   margin-top: 25px;
 }
 
+/* Custom Code for User Profile */
+.waves-block {
+  background-color: white;
+}
 
 /* Custom Code for Footer */
 .page-footer {
