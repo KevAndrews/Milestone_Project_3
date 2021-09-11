@@ -33,8 +33,7 @@ def index():
     return render_template("index.html", 
                             games=display_games(games,page,per_page),
                             pagination=pagination,
-                            display_image = 'block',
-                            username=session["user"])
+                            username=get_user())
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -52,7 +51,7 @@ def login():
             if check_password_hash(existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
                 return redirect(url_for(
-                    "profile", username=session["user"]))
+                    "profile", username=get_user()))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")
@@ -63,7 +62,7 @@ def login():
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
 
-    return render_template("login.html", display_image = 'none')
+    return render_template("login.html")
 
 
 @app.route("/logout")
@@ -71,7 +70,7 @@ def logout():
     # remove user from session cookie
     flash("You have been logged out")
     session.pop("user")
-    return redirect(url_for("login"))
+    return redirect(url_for("index"))
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -99,12 +98,12 @@ def signup():
 
             # put the new user into 'session' cookie
             session["user"] = request.form.get("username").lower()
-            return redirect(url_for("profile", username=session["user"]))
+            return redirect(url_for("profile", get_user()))
         else:
             flash("Passwords do not match")
             return redirect(url_for("signup"))
 
-    return render_template("signup.html", display_image = 'none')
+    return render_template("signup.html")
 
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
@@ -143,6 +142,15 @@ def display_games(game_list, curr_page, per_page):
         games_to_display = game_list[offset:next_index]
 
     return games_to_display
+
+
+def get_user():
+    try:
+        user = session["user"]
+        return user
+    except:
+        user = ''
+        return user
 
 
 if __name__ == "__main__":
