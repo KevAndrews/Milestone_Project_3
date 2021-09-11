@@ -15,11 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
-    <style>
-        .title {
-            display: {{ display_image }};
-        }
-    </style>
     <title>Game Reviews</title>
 </head>
 
@@ -61,19 +56,6 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-    </section>
-
-    <!-- Mission Section contains the Mission Statement for the Site -->
-    <section class="title">
-        <div class="title-text">
-            <h1 class="center-align">Welcome to Game Reviews</h1>
-            <p>
-                Join the growing community of Game Reviewers!<br>
-                Here at Game Reviews we love to share and comment on our favourite games, <br>
-                come join in the fun by signing up today. 
-            </p>
-            <a class="btn" href="{{ url_for('signup') }}">Sign-up</a>
-        </div>
     </section>
 
     <!-- Main Content section -->

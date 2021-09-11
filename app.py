@@ -28,14 +28,13 @@ def index():
 
     games = list(mongo.db.games.find())
 
-    games_to_display = display_games(games,page,per_page)
-
     pagination = Pagination(page=page, per_page=per_page, total=len(games))
 
     return render_template("index.html", 
-                            games=games_to_display,
+                            games=display_games(games,page,per_page),
                             pagination=pagination,
-                            display_image = 'block')
+                            display_image = 'block',
+                            username=session["user"])
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -65,6 +64,14 @@ def login():
             return redirect(url_for("login"))
 
     return render_template("login.html", display_image = 'none')
+
+
+@app.route("/logout")
+def logout():
+    # remove user from session cookie
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("login"))
 
 
 @app.route("/signup", methods=["GET", "POST"])

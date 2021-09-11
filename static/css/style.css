@@ -78,16 +78,11 @@ input[type=text], input[type=password] {
 
 /* Custom Code for the Title text container */
 .title {
-  height: 500px;
   position: relative;
 }
 
 .title-text {
   text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   font-family: 'Orbitron', sans-serif;
   color: white;
 }
