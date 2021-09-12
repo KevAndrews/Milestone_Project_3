@@ -23,8 +23,6 @@ h1 {
 h3 {
   color: white;
   font-family: 'Orbitron', sans-serif;
-  border-bottom: 5px solid #FF570A;
-  width: 25%;
   margin: 20px auto;
   font-size: 1.75em;
 }
@@ -197,6 +195,11 @@ nav .brand-logo {
 /* Custom Code for User Profile */
 .waves-block {
   background-color: white;
+}
+
+.underline {
+  width: 25%;
+  border-bottom: 2px solid #FF570A;
 }
 
 /* Custom Code for Footer */

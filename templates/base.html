@@ -29,7 +29,7 @@
                         class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     {% if username is defined and username|length %}
-                        <li><a href="{{ url_for('profile', username=username) }}">{{ username }}'s Profile</a></li>
+                        <li><a id="profile" href="{{ url_for('profile', username=username) }}">{{ username }}'s Profile</a></li>
                         <li><a href="{{ url_for('logout') }}">Logout</a></li>
                     {% else %}
                         <li><a id="index" href="{{ url_for('index') }}">Home</a></li>
