@@ -4,6 +4,7 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from flask_paginate import Pagination, get_page_parameter
+from datetime import datetime
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
@@ -98,7 +99,7 @@ def signup():
 
             # put the new user into 'session' cookie
             session["user"] = request.form.get("username").lower()
-            return redirect(url_for("profile", get_user()))
+            return redirect(url_for("profile", username=session["user"]))
         else:
             flash("Passwords do not match")
             return redirect(url_for("signup"))
@@ -114,10 +115,34 @@ def profile(username):
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
 
+    reviews = list(mongo.db.reviews.find({"created_by": username}))
+
     if session["user"]:
-        return render_template("profile.html", username=username)
+        return render_template("profile.html", 
+                                username=username,
+                                reviews=reviews)
 
     return redirect(url_for("login"))
+
+
+@app.route("/add_review", methods=["GET", "POST"])
+def add_review():
+    if request.method == "POST":
+        review = {
+            "game_name": request.form.get("game_name"),
+            "review_description": request.form.get("review_description"),
+            "created_date": datetime.today().strftime('%d-%m-%Y'),
+            "created_by": session["user"]
+        }
+        mongo.db.reviews.insert_one(review)
+        flash("Review Successfully Added")
+        return redirect(url_for("profile", username=get_user()))
+
+    games = mongo.db.games.find().sort("name", 1)
+
+    return render_template("add_review.html", 
+                            games=games,
+                            username=get_user())
 
 
 def display_games(game_list, curr_page, per_page):

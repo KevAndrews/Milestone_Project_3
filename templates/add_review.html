@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h3 class="center-align underline">Add Review</h3>
+
+    <div class="row">
+        <form class="col s12 m6 offset-m3" method="POST" action="{{ url_for('add_review') }}">
+            <div class="card">
+                <!-- select a game -->
+                <div class="row">
+                    <div class="input-field col s8 m8 offset-s2 offset-m2">
+                        <i class="fas fa-gamepad prefix white-text"></i>
+                        <select id="game_name" name="game_name" class="validate" required>
+                            <option value="" disabled selected>Choose a Game</option>
+                            {% for game in games %}
+                                <option value="{{ game.name }}">{{ game.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="game_name">Game</label>
+                    </div>
+                </div>
+                <!-- Write a review -->
+                <div class="row">
+                    <form class="col s12">
+                      <div class="row">
+                        <div class="input-field col s8 m8 offset-s2 offset-m2">
+                          <i class="material-icons prefix white-text">mode_edit</i>
+                          <textarea id="review_description" name="review_description" class="materialize-textarea white-text"></textarea>
+                          <label for="review_description">Add Review here</label>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                
+                <!-- Add Review -->
+                <div class="row">
+                    <button type="submit" class="col s8 m8 offset-s2 offset-m2 btn text-shadow">
+                        Add Review <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

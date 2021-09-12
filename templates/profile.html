@@ -17,16 +17,18 @@
           {% for review in reviews %}
             <li>
               <div class="collapsible-header white-text light-blue darken-4 text-shadow">
-                <div class="col s3">
+                <div class="col s3 m1">
                   <i class="fas fa-caret-down"></i>
                   {% if session.user|lower == review.created_by|lower %}
-                    <a href="{{ url_for('delete_task', task_id=task._id) }}" class="btn-small green accent-4">Done</a>
-                    <a href="{{ url_for('edit_task', task_id=task._id) }}" class="btn-small light-blue lighten-1">Edit</a>
+                  
                   {% endif %}
                 </div>
+                <div class="col s9 m12">
+                  <strong>{{ review.game_name }}</strong> Date Added: {{ review.created_date }}
+              </div>
               </div>
               <div class="collapsible-body">
-                <p>{{ review.task_description }}</p>
+                <p>{{ review.review_description }}</p>
               </div>
             </li>
           {% endfor %}
@@ -35,9 +37,11 @@
           <h3 class="white-text center-align">No Results Found</h3>
           <!-- Add review -->
           <div class="row">
-            <button type="submit" class="col s8 m8 offset-s2 offset-m2 btn text-shadow">
+            <a href="{{ url_for('add_review') }}">
+              <button class="col s8 m8 offset-s2 offset-m2 btn text-shadow">
                 Add Review <i class="fas fa-plus"></i>
-            </button>
+              </button>
+            </a>
           </div>
         {% endif %}
       </div>

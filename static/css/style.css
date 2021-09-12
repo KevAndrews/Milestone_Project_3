@@ -192,6 +192,20 @@ nav .brand-logo {
   margin-top: 25px;
 }
 
+.input-field .prefix ~ label {
+  margin-left: 2rem;
+}
+
+.select-wrapper .caret {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  z-index: 0;
+  fill: rgba(255, 255, 255, 0.87);
+}
+
 /* Custom Code for User Profile */
 .waves-block {
   background-color: white;
