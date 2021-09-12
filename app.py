@@ -145,6 +145,31 @@ def add_review():
                             username=get_user())
 
 
+@app.route("/edit_review/<review_id>", methods=["GET", "POST"])
+def edit_review(task_id):
+    if request.method == "POST":
+        submit = {
+            "game_name": request.form.get("game_name"),
+            "review_description": request.form.get("review_description"),
+            "created_date": datetime.today().strftime('%d-%m-%Y'),
+            "created_by": session["user"]
+        }
+        mongo.db.tasks.update({"_id": ObjectId(review_id)}, submit)
+        flash("Review Successfully Updated")
+
+    reviews = mongo.db.reviews.find_one({"_id": ObjectId(task_id)})
+    games = mongo.db.games.find().sort("name", 1)
+
+    return render_template("edit_task.html", reviews=reviews, games=games)
+
+
+@app.route("/delete_review/<review_id>")
+def delete_review(reivew_id):
+    mongo.db.reviews.remove({"_id": ObjectId(review_id)})
+    flash("Review Successfully Deleted")
+    return redirect(url_for("profile", username=get_user()))
+
+
 def display_games(game_list, curr_page, per_page):
     """
     Method to handle Pagination of games.
