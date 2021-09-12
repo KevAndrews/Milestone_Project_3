@@ -132,6 +132,7 @@ def add_review():
             "game_name": request.form.get("game_name"),
             "review_description": request.form.get("review_description"),
             "created_date": datetime.today().strftime('%d-%m-%Y'),
+            "updated_date": datetime.today().strftime('%d-%m-%Y'),
             "created_by": session["user"]
         }
         mongo.db.reviews.insert_one(review)
@@ -146,25 +147,28 @@ def add_review():
 
 
 @app.route("/edit_review/<review_id>", methods=["GET", "POST"])
-def edit_review(task_id):
+def edit_review(review_id):
     if request.method == "POST":
+        review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
         submit = {
-            "game_name": request.form.get("game_name"),
+            "game_name": review['game_name'],
             "review_description": request.form.get("review_description"),
-            "created_date": datetime.today().strftime('%d-%m-%Y'),
+            "created_date": review['created_date'],
+            "updated_date": datetime.today().strftime('%d-%m-%Y'),
             "created_by": session["user"]
         }
-        mongo.db.tasks.update({"_id": ObjectId(review_id)}, submit)
+        mongo.db.reviews.update({"_id": ObjectId(review_id)}, submit)
         flash("Review Successfully Updated")
 
-    reviews = mongo.db.reviews.find_one({"_id": ObjectId(task_id)})
-    games = mongo.db.games.find().sort("name", 1)
+    review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
 
-    return render_template("edit_task.html", reviews=reviews, games=games)
+    return render_template("edit_task.html", 
+                            username=get_user(), 
+                            review=review)
 
 
 @app.route("/delete_review/<review_id>")
-def delete_review(reivew_id):
+def delete_review(review_id):
     mongo.db.reviews.remove({"_id": ObjectId(review_id)})
     flash("Review Successfully Deleted")
     return redirect(url_for("profile", username=get_user()))
