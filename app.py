@@ -117,10 +117,13 @@ def profile(username):
 
     reviews = list(mongo.db.reviews.find({"created_by": username}))
 
+    games = list(mongo.db.games.find({"created_by": username}))
+
     if session["user"]:
         return render_template("profile.html", 
                                 username=username,
-                                reviews=reviews)
+                                reviews=reviews,
+                                games=games)
 
     return redirect(url_for("login"))
 
@@ -225,7 +228,6 @@ def display_game(game_id):
                             username=get_user(), 
                             game=game,
                             reviews=reviews)
-
 
 
 def display_games(game_list, curr_page, per_page):
