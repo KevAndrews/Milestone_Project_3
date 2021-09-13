@@ -32,7 +32,7 @@
           </div>
           <div class="card-content">
             <span class="card-title white-text">
-              <strong>{{ game.name }}</strong>
+              <strong><a href="{{ url_for('display_game', game_id=game._id) }}">{{ game.name }}</a></strong>
             </span>
             <p class="white-text">
               <u>{{ game.category_name }}</u>

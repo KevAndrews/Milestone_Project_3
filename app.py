@@ -175,6 +175,56 @@ def delete_review(review_id):
     return redirect(url_for("profile", username=get_user()))
 
 
+@app.route("/add_game", methods=["GET", "POST"])
+def add_game():
+    if request.method == "POST":
+        game = {
+            
+        }
+        mongo.db.games.insert_one(review)
+        flash("Game Successfully Added")
+        return redirect(url_for("profile", username=get_user()))
+
+    return render_template("add_game.html", 
+                            username=get_user())
+
+
+@app.route("/edit_game/<game_id>", methods=["GET", "POST"])
+def edit_game(game_id):
+    if request.method == "POST":
+        game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+        submit = {
+
+        }
+        mongo.db.games.update({"_id": ObjectId(game_id)}, submit)
+        flash("Game Successfully Updated")
+        return redirect(url_for("profile", username=get_user()))
+
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
+    return render_template("edit_game.html", 
+                            username=get_user(), 
+                            game=game)
+
+
+@app.route("/delete_game/<game_id>")
+def delete_game(game_id):
+    mongo.db.games.remove({"_id": ObjectId(game_id)})
+    flash("Game Successfully Deleted")
+    return redirect(url_for("profile", username=get_user()))
+
+
+@app.route("/display_game/<game_id>", methods=["GET"])
+def display_game(game_id):
+
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
+    return render_template("display_game.html", 
+                            username=get_user(), 
+                            game=game)
+
+
+
 def display_games(game_list, curr_page, per_page):
     """
     Method to handle Pagination of games.
