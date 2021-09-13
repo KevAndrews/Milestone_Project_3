@@ -131,14 +131,14 @@ def profile(username):
 @app.route("/add_review", methods=["GET", "POST"])
 def add_review():
     if request.method == "POST":
-        review = {
+        submit = {
             "game_name": request.form.get("game_name"),
             "review_description": request.form.get("review_description"),
             "created_date": datetime.today().strftime('%d-%m-%Y'),
             "updated_date": datetime.today().strftime('%d-%m-%Y'),
             "created_by": session["user"]
         }
-        mongo.db.reviews.insert_one(review)
+        mongo.db.reviews.insert_one(submit)
         flash("Review Successfully Added")
         return redirect(url_for("profile", username=get_user()))
 
@@ -181,10 +181,10 @@ def delete_review(review_id):
 @app.route("/add_game", methods=["GET", "POST"])
 def add_game():
     if request.method == "POST":
-        game = {
+        submit = {
             
         }
-        mongo.db.games.insert_one(review)
+        mongo.db.games.insert_one(submit)
         flash("Game Successfully Added")
         return redirect(url_for("profile", username=get_user()))
 
@@ -194,20 +194,33 @@ def add_game():
 
 @app.route("/edit_game/<game_id>", methods=["GET", "POST"])
 def edit_game(game_id):
-    if request.method == "POST":
-        game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
-        submit = {
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
 
+    if request.method == "POST":
+        img_link = request.form.get("img_link")
+        
+        if len(img_link) < 1:
+            img_link = game["img_link"]
+
+        submit = {
+            "name": game['name'],
+            "description": request.form.get("description"),
+            "category_name": request.form.get("category_name"),
+            "img_link": img_link,
+            "created_date": game['created_date'],
+            "updated_date": datetime.today().strftime('%d-%m-%Y'),
+            "created_by": session["user"]
         }
         mongo.db.games.update({"_id": ObjectId(game_id)}, submit)
         flash("Game Successfully Updated")
         return redirect(url_for("profile", username=get_user()))
 
-    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+    categories = mongo.db.categories.find().sort("category_name", 1)
 
     return render_template("edit_game.html", 
                             username=get_user(), 
-                            game=game)
+                            game=game,
+                            categories=categories)
 
 
 @app.route("/delete_game/<game_id>")
