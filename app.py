@@ -4,6 +4,7 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from flask_paginate import Pagination, get_page_parameter
+from datetime import datetime
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
@@ -28,14 +29,12 @@ def index():
 
     games = list(mongo.db.games.find())
 
-    games_to_display = display_games(games,page,per_page)
-
     pagination = Pagination(page=page, per_page=per_page, total=len(games))
 
     return render_template("index.html", 
-                            games=games_to_display,
+                            games=display_games(games,page,per_page),
                             pagination=pagination,
-                            display_image = 'block')
+                            username=get_user())
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -53,7 +52,7 @@ def login():
             if check_password_hash(existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
                 return redirect(url_for(
-                    "profile", username=session["user"]))
+                    "profile", username=get_user()))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")
@@ -64,7 +63,15 @@ def login():
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
 
-    return render_template("login.html", display_image = 'none')
+    return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    # remove user from session cookie
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("index"))
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -97,7 +104,7 @@ def signup():
             flash("Passwords do not match")
             return redirect(url_for("signup"))
 
-    return render_template("signup.html", display_image = 'none')
+    return render_template("signup.html")
 
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
@@ -108,10 +115,114 @@ def profile(username):
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
 
+    reviews = list(mongo.db.reviews.find({"created_by": username}))
+
     if session["user"]:
-        return render_template("profile.html", username=username)
+        return render_template("profile.html", 
+                                username=username,
+                                reviews=reviews)
 
     return redirect(url_for("login"))
+
+
+@app.route("/add_review", methods=["GET", "POST"])
+def add_review():
+    if request.method == "POST":
+        review = {
+            "game_name": request.form.get("game_name"),
+            "review_description": request.form.get("review_description"),
+            "created_date": datetime.today().strftime('%d-%m-%Y'),
+            "updated_date": datetime.today().strftime('%d-%m-%Y'),
+            "created_by": session["user"]
+        }
+        mongo.db.reviews.insert_one(review)
+        flash("Review Successfully Added")
+        return redirect(url_for("profile", username=get_user()))
+
+    games = mongo.db.games.find().sort("name", 1)
+
+    return render_template("add_review.html", 
+                            games=games,
+                            username=get_user())
+
+
+@app.route("/edit_review/<review_id>", methods=["GET", "POST"])
+def edit_review(review_id):
+    if request.method == "POST":
+        review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
+        submit = {
+            "game_name": review['game_name'],
+            "review_description": request.form.get("review_description"),
+            "created_date": review['created_date'],
+            "updated_date": datetime.today().strftime('%d-%m-%Y'),
+            "created_by": session["user"]
+        }
+        mongo.db.reviews.update({"_id": ObjectId(review_id)}, submit)
+        flash("Review Successfully Updated")
+        return redirect(url_for("profile", username=get_user()))
+
+    review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
+
+    return render_template("edit_review.html", 
+                            username=get_user(), 
+                            review=review)
+
+
+@app.route("/delete_review/<review_id>")
+def delete_review(review_id):
+    mongo.db.reviews.remove({"_id": ObjectId(review_id)})
+    flash("Review Successfully Deleted")
+    return redirect(url_for("profile", username=get_user()))
+
+
+@app.route("/add_game", methods=["GET", "POST"])
+def add_game():
+    if request.method == "POST":
+        game = {
+            
+        }
+        mongo.db.games.insert_one(review)
+        flash("Game Successfully Added")
+        return redirect(url_for("profile", username=get_user()))
+
+    return render_template("add_game.html", 
+                            username=get_user())
+
+
+@app.route("/edit_game/<game_id>", methods=["GET", "POST"])
+def edit_game(game_id):
+    if request.method == "POST":
+        game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+        submit = {
+
+        }
+        mongo.db.games.update({"_id": ObjectId(game_id)}, submit)
+        flash("Game Successfully Updated")
+        return redirect(url_for("profile", username=get_user()))
+
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
+    return render_template("edit_game.html", 
+                            username=get_user(), 
+                            game=game)
+
+
+@app.route("/delete_game/<game_id>")
+def delete_game(game_id):
+    mongo.db.games.remove({"_id": ObjectId(game_id)})
+    flash("Game Successfully Deleted")
+    return redirect(url_for("profile", username=get_user()))
+
+
+@app.route("/display_game/<game_id>", methods=["GET"])
+def display_game(game_id):
+
+    game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
+
+    return render_template("display_game.html", 
+                            username=get_user(), 
+                            game=game)
+
 
 
 def display_games(game_list, curr_page, per_page):
@@ -136,6 +247,16 @@ def display_games(game_list, curr_page, per_page):
         games_to_display = game_list[offset:next_index]
 
     return games_to_display
+
+
+def get_user():
+    try:
+        user = session["user"]
+        return user
+    except:
+        user = ''
+        return user
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

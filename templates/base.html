@@ -15,11 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
-    <style>
-        .title {
-            display: {{ display_image }};
-        }
-    </style>
     <title>Game Reviews</title>
 </head>
 
@@ -33,20 +28,30 @@
                 <a href="#" data-target="mobile-demo" class="right sidenav-trigger"><i
                         class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a id="index" href="{{ url_for('index') }}">Home</a></li>
-                    <li><a id="login" href="{{ url_for('login') }}">Login/Sign up</a></li>
+                    {% if username is defined and username|length %}
+                        <li><a id="profile" href="{{ url_for('profile', username=username) }}">{{ username }}'s Profile</a></li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a id="index" href="{{ url_for('index') }}">Home</a></li>
+                        <li><a id="login" href="{{ url_for('login') }}">Login/Sign up</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
 
         <ul class="sidenav" id="mobile-demo">
-            <li><a id="index" href="{{ url_for('index') }}">Home</a></li>
-            <li><a id="login" href="{{ url_for('login') }}">Login/Sign up</a></li>
+            {% if username is defined and username|length %}
+                <li><a href="{{ url_for('profile', username=username) }}">{{ username }}'s Profile</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+                <li><a id="index" href="{{ url_for('index') }}">Home</a></li>
+                <li><a id="login" href="{{ url_for('login') }}">Login/Sign up</a></li>
+            {% endif %}
         </ul>
     </header>
 
     <!-- Used Feedback Messages section from the Flask task project-->
-    <section class="feedback">
+    <section class="feedback alert">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -56,19 +61,6 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-    </section>
-
-    <!-- Mission Section contains the Mission Statement for the Site -->
-    <section class="title">
-        <div class="title-text">
-            <h1 class="center-align">Welcome to Game Reviews</h1>
-            <p>
-                Join the growing community of Game Reviewers!<br>
-                Here at Game Reviews we love to share and comment on our favourite games, <br>
-                come join in the fun by signing up today. 
-            </p>
-            <a class="btn" href="{{ url_for('signup') }}">Sign-up</a>
-        </div>
     </section>
 
     <!-- Main Content section -->
