@@ -219,9 +219,12 @@ def display_game(game_id):
 
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
 
+    reviews = list(mongo.db.reviews.find({"game_name":game["name"]}))
+
     return render_template("display_game.html", 
                             username=get_user(), 
-                            game=game)
+                            game=game,
+                            reviews=reviews)
 
 
 
