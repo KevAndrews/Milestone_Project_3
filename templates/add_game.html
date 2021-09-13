@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h3 class="center-align underline">Add Game</h3>
+
+    <div class="row">
+        <form class="col s12 m6 offset-m3" method="POST" action="{{ url_for('add_game') }}">
+            <div class="card">
+                <!-- Write a Name -->
+                <div class="row">
+                    <div class="input-field col s8 m8 offset-s2 offset-m2">
+                        <i class="material-icons prefix white-text">mode_edit</i>
+                        <input id="name" name="name">
+                    </div>
+                </div>
+                <!-- Select a category -->
+                <div class="row">
+                    <div class="input-field col s8 m8 offset-s2 offset-m2">
+                        <i class="fas fa-gamepad prefix white-text"></i>
+                        <select id="category_name" name="category_name" class="validate" required>
+                            <option value="" disabled selected>Choose a Category</option>
+                            {% for category in categories %}
+                                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="game_name">Category</label>
+                    </div>
+                </div>
+                <!-- Write a Description -->
+                <div class="row">
+                    <div class="row">
+                        <div class="input-field col s8 m8 offset-s2 offset-m2">
+                            <i class="material-icons prefix white-text">mode_edit</i>
+                            <textarea id="description" name="description" class="materialize-textarea white-text"></textarea>
+                            <label for="description">Add Description here</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Add Game -->
+                <div class="row">
+                    <button type="submit" class="col s8 m8 offset-s2 offset-m2 btn text-shadow">
+                        Add Game <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

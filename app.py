@@ -181,15 +181,30 @@ def delete_review(review_id):
 @app.route("/add_game", methods=["GET", "POST"])
 def add_game():
     if request.method == "POST":
-        submit = {
-            
-        }
-        mongo.db.games.insert_one(submit)
-        flash("Game Successfully Added")
-        return redirect(url_for("profile", username=get_user()))
+        game = mongo.db.games.find_one({"name": request.form.get("name")})
+
+        if game is not None:
+            flash("Game Already Exists")
+        else:
+            submit = {
+                "name": request.form.get("name"),
+                "description": request.form.get("description"),
+                "category_name": request.form.get("category_name"),
+                "img_link": request.form.get("img_link"),
+                "created_date": datetime.today().strftime('%d-%m-%Y'),
+                "updated_date": datetime.today().strftime('%d-%m-%Y'),
+                "created_by": session["user"]
+            }
+
+            mongo.db.games.insert_one(submit)
+            flash("Game Successfully Added")
+            return redirect(url_for("profile", username=get_user()))
+
+    categories = mongo.db.categories.find().sort("category_name", 1)
 
     return render_template("add_game.html", 
-                            username=get_user())
+                            username=get_user(),
+                            categories=categories)
 
 
 @app.route("/edit_game/<game_id>", methods=["GET", "POST"])
