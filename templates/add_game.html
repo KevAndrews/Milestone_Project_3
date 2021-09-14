@@ -4,7 +4,7 @@
     <h3 class="center-align underline">Add Game</h3>
 
     <div class="row">
-        <form class="col s12 m6 offset-m3" method="POST" action="{{ url_for('add_game') }}">
+        <form class="col s12 m6 offset-m3" method="POST" enctype="multipart/form-data" action="{{ url_for('add_game') }}">
             <div class="card">
                 <!-- Write a Name -->
                 <div class="row">
@@ -36,7 +36,13 @@
                         </div>
                     </div>
                 </div>
-                
+                <!-- Add an image -->
+                <div class="row">
+                    <div class="input-field col s8 m8 offset-s2 offset-m2">
+                        <i class="material-icons prefix white-text">mode_edit</i>
+                        <input type="file" name="img_link" />
+                    </div>
+                </div>
                 <!-- Add Game -->
                 <div class="row">
                     <button type="submit" class="col s8 m8 offset-s2 offset-m2 btn text-shadow">

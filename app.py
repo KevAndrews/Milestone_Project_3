@@ -1,4 +1,5 @@
 import os
+import base64
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -182,7 +183,9 @@ def delete_review(review_id):
 def add_game():
     if request.method == "POST":
         game = mongo.db.games.find_one({"name": request.form.get("name")})
-
+        file = request.files['img_link']
+        rv = base64.b64encode(file.read())
+        rv = rv.decode('ascii')
         if game is not None:
             flash("Game Already Exists")
         else:
@@ -190,7 +193,7 @@ def add_game():
                 "name": request.form.get("name"),
                 "description": request.form.get("description"),
                 "category_name": request.form.get("category_name"),
-                "img_link": request.form.get("img_link"),
+                "img_link": rv,
                 "created_date": datetime.today().strftime('%d-%m-%Y'),
                 "updated_date": datetime.today().strftime('%d-%m-%Y'),
                 "created_by": session["user"]
@@ -198,7 +201,7 @@ def add_game():
 
             mongo.db.games.insert_one(submit)
             flash("Game Successfully Added")
-            return redirect(url_for("profile", username=get_user()))
+            return redirect(url_for("profile", username=get_user())) 
 
     categories = mongo.db.categories.find().sort("category_name", 1)
 
@@ -212,16 +215,14 @@ def edit_game(game_id):
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
 
     if request.method == "POST":
-        img_link = request.form.get("img_link")
-        
-        if len(img_link) < 1:
-            img_link = game["img_link"]
-
+        file = request.files['img_link']
+        rv = base64.b64encode(file.read())
+        rv = rv.decode('ascii')
         submit = {
             "name": game['name'],
             "description": request.form.get("description"),
             "category_name": request.form.get("category_name"),
-            "img_link": img_link,
+            "img_link": rv,
             "created_date": game['created_date'],
             "updated_date": datetime.today().strftime('%d-%m-%Y'),
             "created_by": session["user"]
