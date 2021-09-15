@@ -23,17 +23,19 @@
           <ul class="collapsible">
           {% for review in reviews %}
             <li>
-              <div class="collapsible-header white-text light-blue darken-4 text-shadow">
+              <div class="collapsible-header white-text text-shadow">
                 <div class="col s3 m1">
                   <i class="fas fa-caret-down"></i>
+                </div>
+                <div class="col s6 m7">
+                  <strong>{{ review.game_name }}</strong> Date Added: {{ review.created_date }}
+                </div>
+                <div class="col s3 m5">
                   {% if session.user|lower == review.created_by|lower %}
-                    <a href="{{ url_for('delete_review', review_id=review._id) }}" class="btn-small green accent-4">Delete</a>
-                    <a href="{{ url_for('edit_review', review_id=review._id) }}" class="btn-small light-blue lighten-1">Edit</a>
+                    <a href="{{ url_for('delete_review', review_id=review._id) }}" class="btn-small right">Delete</a>
+                    <a href="{{ url_for('edit_review', review_id=review._id) }}" class="btn-small right">Edit</a>
                   {% endif %}
                 </div>
-                <div class="col s9 m12">
-                  <strong>{{ review.game_name }}</strong> Date Added: {{ review.created_date }}
-              </div>
               </div>
               <div class="collapsible-body">
                 <p>{{ review.review_description }}</p>
@@ -66,17 +68,19 @@
           <ul class="collapsible">
           {% for game in games %}
             <li>
-              <div class="collapsible-header white-text light-blue darken-4 text-shadow">
+              <div class="collapsible-header white-text text-shadow">
                 <div class="col s3 m1">
                   <i class="fas fa-caret-down"></i>
+                </div>
+                <div class="col s6 m7">
+                  <strong>{{ game.name }}</strong> Date Added: {{ game.created_date }}
+                </div>
+                <div class="col s3 m5">
                   {% if session.user|lower == game.created_by|lower %}
-                    <a href="{{ url_for('delete_game', game_id=game._id) }}" class="btn-small green accent-4">Delete</a>
-                    <a href="{{ url_for('edit_game', game_id=game._id) }}" class="btn-small light-blue lighten-1">Edit</a>
+                    <a href="{{ url_for('delete_game', game_id=game._id) }}" class="btn-small right">Delete</a>
+                    <a href="{{ url_for('edit_game', game_id=game._id) }}" class="btn-small right">Edit</a>
                   {% endif %}
                 </div>
-                <div class="col s9 m12">
-                  <strong>{{ game.name }}</strong> Date Added: {{ game.created_date }}
-              </div>
               </div>
               <div class="collapsible-body">
                 <p>{{ game.description }}</p>
