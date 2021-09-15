@@ -42,12 +42,55 @@
           {% endfor %}
           </ul>
         {% else %}
-          <h3 class="white-text center-align">No Results Found</h3>
+          <h3 class="white-text center-align">No Reviews Found</h3>
           <!-- Add review -->
           <div class="row">
             <a href="{{ url_for('add_review') }}">
               <button class="col s8 m8 offset-s2 offset-m2 btn text-shadow">
                 Add Review <i class="fas fa-plus"></i>
+              </button>
+            </a>
+          </div>
+        {% endif %}
+        <div class="row">
+          <span class="col card-title white-text underline">
+            Games
+          </span>
+          <a href="{{ url_for('add_game') }}">
+            <button class="col s2 m2 offset-s1 offset-m1 btn text-shadow">
+              Add Game <i class="fas fa-plus"></i>
+            </button>
+          </a>
+        </div>
+        {% if games|length > 0 %}
+          <ul class="collapsible">
+          {% for game in games %}
+            <li>
+              <div class="collapsible-header white-text light-blue darken-4 text-shadow">
+                <div class="col s3 m1">
+                  <i class="fas fa-caret-down"></i>
+                  {% if session.user|lower == game.created_by|lower %}
+                    <a href="{{ url_for('delete_game', game_id=game._id) }}" class="btn-small green accent-4">Delete</a>
+                    <a href="{{ url_for('edit_game', game_id=game._id) }}" class="btn-small light-blue lighten-1">Edit</a>
+                  {% endif %}
+                </div>
+                <div class="col s9 m12">
+                  <strong>{{ game.name }}</strong> Date Added: {{ game.created_date }}
+              </div>
+              </div>
+              <div class="collapsible-body">
+                <p>{{ game.description }}</p>
+              </div>
+            </li>
+          {% endfor %}
+          </ul>
+        {% else %}
+          <h3 class="white-text center-align">No Games Found</h3>
+          <!-- Add review -->
+          <div class="row">
+            <a href="{{ url_for('add_game') }}">
+              <button class="col s8 m8 offset-s2 offset-m2 btn text-shadow">
+                Add Game <i class="fas fa-plus"></i>
               </button>
             </a>
           </div>

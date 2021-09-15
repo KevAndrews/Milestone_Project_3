@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <h3 class="center-align underline">Edit Game Information for <br>{{ game.name }}</h3>
+
+  <div class="row">
+    <form class="col s12 m6 offset-m3" method="POST" enctype="multipart/form-data" action="{{ url_for('edit_game', game_id=game._id) }}">
+      <div class="card">
+        <!-- Update Category -->
+        <div class="row">
+          <div class="input-field col s8 m8 offset-s2 offset-m2">
+            <i class="fas fa-gamepad prefix white-text"></i>
+            <select id="category_name" name="category_name" class="validate" required>
+              <option value="" disabled selected>Choose a category</option>
+              {% for category in categories %}
+                {% if category.category_name == game.category_name %}
+                  <option value="{{ category.category_name }}" selected>{{ category.category_name }}</option>
+                {% else %}
+                  <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            <label for="category_name">Category</label>
+          </div>
+        </div>
+        <!-- Update Description -->
+        <div class="row">
+          <div class="input-field col s8 m8 offset-s2 offset-m2">
+            <i class="material-icons prefix white-text">mode_edit</i>
+            <textarea id="description" name="description" class="materialize-textarea white-text">
+              {{- game.description -}}
+            </textarea>
+          </div>
+        </div>
+        <!-- Update Description -->
+        <div class="row">
+          <div class="input-field col s8 m8 offset-s2 offset-m2">
+            <i class="material-icons prefix white-text">mode_edit</i>
+            <input type="file" id="img_link" name="img_link" />
+          </div>
+        </div>
+        <!-- Update Game -->
+        <div class="row">
+          <button type="submit" class="col s8 m8 offset-s2 offset-m2 btn text-shadow">
+            Update Game <i class="fas fa-edit"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+{% endblock %}
