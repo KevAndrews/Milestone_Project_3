@@ -102,7 +102,8 @@ def signup():
             register = {
                 "username": request.form.get("username").lower(),
                 "password": generate_password_hash(
-                    request.form.get("password"))
+                    request.form.get("password")),
+                "type" : "user"
             }
             mongo.db.users.insert_one(register)
 
