@@ -78,16 +78,37 @@ From the structure above I was able to generate the below Wireframes for the sit
     I used a Retro background from the [80s-retro-games](https://wallpaperaccess.com/80s-retro-games) using this image [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/static/images/bg_img.jpg)
 
 ## Wireframes
--   #### Balsamiq - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/MS2_Wireframes.bmpr)
+-   #### Balsamiq - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/MS3_Wireframes.bmpr)
 
 -   #### Desktop
-
+    1.  Home Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/desktop/Home%20Page%20Desktop%20View.png)
+    2.  Add Game Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/desktop/Add%20Game%20Page%20Desktop%20View.png)
+    3.  Add Review Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/desktop/Add%20Review%20Page%20Desktop%20View.png)
+    4.  Edit Game Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/desktop/Edit%20Game%20Page%20Desktop%20View.png)
+    5.  Edit Review Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/desktop/Edit%20Review%20Page%20Desktop%20View.png)
+    6.  Login Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/desktop/Login%20Page%20Desktop%20View.png)
+    7.  Profile Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/desktop/Profile%20Page%20Desktop%20View.png)
+    8.  Signup Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/desktop/Signup%20Page%20Desktop%20View.png)
 
 -   #### Tablet
-
+    1.  Home Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/tablet/Home%20Page%20Tablet%20View.png)
+    2.  Add Game Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/tablet/Add%20Game%20Page%20Tablet%20View.png)
+    3.  Add Review Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/tablet/Add%20Review%20Page%20Tablet%20View.png)
+    4.  Edit Game Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/tablet/Edit%20Game%20Page%20Tablet%20View.png)
+    5.  Edit Review Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/tablet/Edit%20Review%20Page%20Tablet%20View.png)
+    6.  Login Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/tablet/Login%20Page%20Tablet%20View.png)
+    7.  Profile Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/tablet/Profile%20Page%20Tablet%20View.png)
+    8.  Signup Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/tablet/Signup%20Page%20Tablet%20View.png)
 
 -   #### Mobile
-
+    1.  Home Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/mobile/Home%20Page%20Mobile%20View.png)
+    2.  Add Game Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/mobile/Add%20Game%20Page%20Mobile%20View.png)
+    3.  Add Review Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/mobile/Add%20Review%20Page%20Mobile%20View.png)
+    4.  Edit Game Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/mobile/Edit%20Game%20Page%20Mobile%20View.png)
+    5.  Edit Review Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/mobile/Edit%20Review%20Page%20Mobile%20View.png)
+    6.  Login Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/mobile/Login%20Page%20Mobile%20View.png)
+    7.  Profile Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/mobile/Profile%20Page%20Mobile%20View.png)
+    8.  Signup Page Wireframe - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/mobile/Signup%20Page%20Mobile%20View.png)
 
 
 # Technologies Used
