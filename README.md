@@ -4,7 +4,7 @@ The scope for this project is to create a user centric website using Flask, Pyth
 Game Reviews is a website that allows users to search for Games that they would like to play and see what the community has to say. You can join the community and add to the growing selecting of games and review.
 <br/><br/>
 
-![Responsive displays](images/responsive.png)
+![Responsive displays](readme_images/responsive.png)
 
 # Table of contents
 - [UX](#user-experience)
@@ -16,7 +16,7 @@ Game Reviews is a website that allows users to search for Games that they would 
     - [Languages and Frameworks](#languages-and-frameworks)
 - [Code Validation](#code-validation)
 - [Database Schema](#database-schema)
-- [Database](#database)
+- [Database and Schema](#database-and-schema)
     - [MongoDB Setup](#mongodb-setup)
 - [Deployment](#deployment)
     - [Forking the GitHub Repository](#forking-the-github-repository)
@@ -26,12 +26,69 @@ Game Reviews is a website that allows users to search for Games that they would 
 - [Content](#content)
 - [Acknowledgements](#acknowledgements)
 
-
 # User Experience
 ## User stories
+ -   ### First Time Visitor Goals
+        1. As a First Time Visitor, I want to easily understand the main purpose of the site.
+        2. As a First Time Visitor, I want to be able to easily navigate throughout the site and to contact the developer for more information.
+        3. As a First Time Visitor, I want to easily be able to sign-up
+        4. As a First Time Visitor, I want to be able to search for games
+ -   ### Returning or Frequent Visitor Goals
+        1. As a Returning Visitor, I want to be able to log in.
+        2. As a Returning Visitor, I want to be able to log out.
+        3. As a Returning Visitor, I want to be able add a game.
+        4. As a Returning Visitor, I want to be able edit a game I have added.
+        5. As a Returning Visitor, I want to be able delete a game I have added.
+        6. As a Returning Visitor, I want to be able add a review.
+        7. As a Returning Visitor, I want to be able edit a review I have added.
+        8. As a Returning Visitor, I want to be able delete a review I have added.
+        9. As a Returning Visitor, I want to be able to delete my account.
+
+
 ## Design
-## Surface Plane
+### Strategy Plane
+Game Reviews aims to provide users with a website that will provide user reviews for Games.
+
+The objective of this project is to give the user the ability to navigate the site, log in and sign out as well as provide logged in users with the ability to add, edit or remove games and reviews they have added to the platform.
+
+### Scope Plane
+This project will look to provide an interactive website.
+
+The website will convey the developers use of Python, HTML, CSS, jQuery and Flask to build a user centric website.
+
+### Structure Plane
+As the aim of the site is to provide an interactive website to the users. The site was developed to be a multi-page site. The User has access to navigation in the top right of the page.
+
+The user has the ability to navigation to the Home page, their profile page and login or out from the top right of the page and from the slide out menu on Mobile.
+
+### Skeleton Plane
+From the structure above I was able to generate the below Wireframes for the site, while these wireframes are guidelines for building the main structure of the site the layout of the content is subject to change.
+
+### Surface Plane
+  -   #### Colour Scheme
+        The colour scheme I chose for the site was based around Retro neon with Black and White displays.
+        - Black: (Hex) #211a1dff
+        - White: white or (Hex)#fff
+        - Orange: (Hex)#FF570A
+
+ -   #### Typography
+       I deicided on using Google Fonts Orbitron and Roboto throughout the site to have a Retro type font face.
+
+-   #### Imagery
+    I used a Retro background from the [80s-retro-games](https://wallpaperaccess.com/80s-retro-games) using this image [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/static/images/bg_img.jpg)
+
 ## Wireframes
+-   #### Balsamiq - [View](https://github.com/KevAndrews/Milestone_Project_3/blob/main/wireframes/MS2_Wireframes.bmpr)
+
+-   #### Desktop
+
+
+-   #### Tablet
+
+
+-   #### Mobile
+
+
 
 # Technologies Used
 ## Languages and Frameworks
@@ -45,17 +102,13 @@ Game Reviews is a website that allows users to search for Games that they would 
 - [Flask](https://en.wikipedia.org/wiki/Flask_(web_framework))
 - [JQuery](https://jquery.com/)
 
-
 # Code Validation
 - [W3 HTML Validator](https://validator.w3.org/) 
 - [W3 CSS Validator](https://jigsaw.w3.org/css-validator/)
 - [JShint](https://jshint.com/)
 - [PEP8 checker](http://pep8online.com/)
 
-# Database Schema
-
-# Database
-
+# Database and Schema
 ## MongoDB Setup
 1. Sign up for a free account and login to [MongoDB](https://www.mongodb.com).
 2. (If you are new at MongoDB) create a cluster first by clicking "Create" and following the steps.
@@ -64,10 +117,9 @@ Game Reviews is a website that allows users to search for Games that they would 
 5. Select Python as "Driver" and choose "Version 3.6 or later"
 6. Use the below collection schema
 
-![Responsive displays](readme_images/responsive.png)
+![Database Schema](readme_images/db_schema.png)
 
 # Deployment
-
 ## Forking the GitHub Repository
 The GitHub Repository can be forked to make a copy of the original repository on the GitHub account to view and/or make changes without affecting the original repository in the following way.
 
