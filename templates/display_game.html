@@ -4,7 +4,7 @@
     <section class="display-game row">
         <div class="card col s12 m12">
             <div class="card-image waves-effect waves-block waves-light">
-                <img src="{{ game.img_link }}" alt="Display image for {{ game.name }}">
+                <img src="data:image/webp;base64,{{ game.img_link }}" alt="Display image for {{ game.name }}">
             </div>
             <div class="card-content">
                 <span class="card-title white-text">
@@ -14,38 +14,43 @@
                     <u>{{ game.category_name }}</u>
                     <br><br>
                     {{ game.description }}
+                    <br><br>
+                    <h3>Reviews:</h3>
                 </p>
                 {% if reviews|length > 0 %}
                     <ul class="collapsible">
                     {% for review in reviews %}
                         <li>
-                        <div class="collapsible-header white-text light-blue darken-4 text-shadow">
-                            <div class="col s3 m1">
-                                <i class="fas fa-caret-down"></i>
+                            <div class="collapsible-header white-text text-shadow">
+                                <div class="col s3 m1">
+                                    <i class="fas fa-caret-down"></i>
+                                </div>
+                                <div class="col s6 m8">
+                                    <strong>{{ review.game_name }}</strong>
+                                </div>
+                                <div class="col s3 m4">
+                                    Reviewed By: {{ review.created_by }}
+                                </div>
                             </div>
-                            <div class="col s9 m12">
-                            <strong>{{ review.game_name }}</strong> Reviewed By: {{ review.created_by }}
-                        </div>
-                        </div>
-                        <div class="collapsible-body">
-                            <p>{{ review.review_description }}</p>
-                        </div>
+                            <div class="collapsible-body">
+                                <p>{{ review.review_description }}</p>
+                            </div>
                         </li>
                     {% endfor %}
                     </ul>
                     {% else %}
                     <h3 class="white-text center-align">No Reviews Found</h3>
-                    {% endif %}
-                    {% if username is defined and username|length %}
+                {% endif %}
+                {% if username is defined and username|length %}
                     <!-- Add review -->
                     <div class="row">
                         <a href="{{ url_for('add_review') }}">
-                        <button class="col s8 m8 offset-s2 offset-m2 btn text-shadow">
-                            Add Review <i class="fas fa-plus"></i>
-                        </button>
+                            <button class="col s8 m8 offset-s2 offset-m2 btn text-shadow">
+                                Add Review <i class="fas fa-plus"></i>
+                            </button>
                         </a>
                     </div>
-                    {% endif %}
+                {% endif %}
             </div>
         </div>
     </section>

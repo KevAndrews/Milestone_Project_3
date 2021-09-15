@@ -288,6 +288,17 @@ def display_game(game_id):
                            reviews=reviews)
 
 
+@app.route("/delete_user/<username>", methods=["GET"])
+def delete_user(username):
+    """
+    This method deletes the selected user, games and
+    reviews.
+    """
+    mongo.db.users.remove({"name": username})
+    flash("User has been removed")
+    return redirect(url_for("login"))
+
+
 def display_games(game_list, curr_page, per_page):
     """
     Method to handle Pagination of games.
@@ -324,4 +335,4 @@ def get_user():
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True)
+            debug=False)
