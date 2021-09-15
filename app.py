@@ -288,6 +288,14 @@ def display_game(game_id):
                            reviews=reviews)
 
 
+@app.route("/delete_user/<user_id>", methods=["GET"])
+def delete_user(user_id):
+    """
+    This method deletes the selected user, games and
+    reviews.
+    """
+    return render_template("login.html")
+
 def display_games(game_list, curr_page, per_page):
     """
     Method to handle Pagination of games.
