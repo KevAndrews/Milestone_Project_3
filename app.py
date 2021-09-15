@@ -298,6 +298,7 @@ def delete_user(username):
     flash("User has been removed")
     return redirect(url_for("login"))
 
+
 def display_games(game_list, curr_page, per_page):
     """
     Method to handle Pagination of games.
@@ -334,4 +335,4 @@ def get_user():
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True)
+            debug=False)
