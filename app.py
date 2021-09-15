@@ -23,7 +23,10 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def index():
-
+    """
+    This method loads the games in the DB into a list
+    for pagination and display on he index page
+    """
     per_page = 9
 
     page = request.args.get(get_page_parameter(), type=int, default=1)
@@ -32,10 +35,10 @@ def index():
 
     pagination = Pagination(page=page, per_page=per_page, total=len(games))
 
-    return render_template("index.html", 
-                            games=display_games(games,page,per_page),
-                            pagination=pagination,
-                            username=get_user())
+    return render_template("index.html",
+                           games=display_games(games, page, per_page),
+                           pagination=pagination,
+                           username=get_user())
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -50,7 +53,8 @@ def login():
 
         if existing_user:
             # ensure hashed password matches user input
-            if check_password_hash(existing_user["password"], request.form.get("password")):
+            if check_password_hash(existing_user["password"],
+                                   request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
                 return redirect(url_for(
                     "profile", username=get_user()))
@@ -69,6 +73,9 @@ def login():
 
 @app.route("/logout")
 def logout():
+    """
+    Remove session to log user out
+    """
     # remove user from session cookie
     flash("You have been logged out")
     session.pop("user")
@@ -89,12 +96,13 @@ def signup():
         if existing_user:
             flash("Username already exists")
             return redirect(url_for("signup"))
-        
+
         # Custom code
         if request.form.get("password") == request.form.get("conpassword"):
             register = {
                 "username": request.form.get("username").lower(),
-                "password": generate_password_hash(request.form.get("password"))
+                "password": generate_password_hash(
+                    request.form.get("password"))
             }
             mongo.db.users.insert_one(register)
 
@@ -121,16 +129,19 @@ def profile(username):
     games = list(mongo.db.games.find({"created_by": username}))
 
     if session["user"]:
-        return render_template("profile.html", 
-                                username=username,
-                                reviews=reviews,
-                                games=games)
+        return render_template("profile.html",
+                               username=username,
+                               reviews=reviews,
+                               games=games)
 
     return redirect(url_for("login"))
 
 
 @app.route("/add_review", methods=["GET", "POST"])
 def add_review():
+    """
+    Add a review to a game
+    """
     if request.method == "POST":
         submit = {
             "game_name": request.form.get("game_name"),
@@ -145,13 +156,16 @@ def add_review():
 
     games = mongo.db.games.find().sort("name", 1)
 
-    return render_template("add_review.html", 
-                            games=games,
-                            username=get_user())
+    return render_template("add_review.html",
+                           games=games,
+                           username=get_user())
 
 
 @app.route("/edit_review/<review_id>", methods=["GET", "POST"])
 def edit_review(review_id):
+    """
+    Edit selected review
+    """
     if request.method == "POST":
         review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
         submit = {
@@ -167,13 +181,16 @@ def edit_review(review_id):
 
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
 
-    return render_template("edit_review.html", 
-                            username=get_user(), 
-                            review=review)
+    return render_template("edit_review.html",
+                           username=get_user(),
+                           review=review)
 
 
 @app.route("/delete_review/<review_id>")
 def delete_review(review_id):
+    """
+    Delete selected review
+    """
     mongo.db.reviews.remove({"_id": ObjectId(review_id)})
     flash("Review Successfully Deleted")
     return redirect(url_for("profile", username=get_user()))
@@ -181,6 +198,9 @@ def delete_review(review_id):
 
 @app.route("/add_game", methods=["GET", "POST"])
 def add_game():
+    """
+    Add new game to the DB
+    """
     if request.method == "POST":
         game = mongo.db.games.find_one({"name": request.form.get("name")})
         file = request.files['img_link']
@@ -201,17 +221,20 @@ def add_game():
 
             mongo.db.games.insert_one(submit)
             flash("Game Successfully Added")
-            return redirect(url_for("profile", username=get_user())) 
+            return redirect(url_for("profile", username=get_user()))
 
     categories = mongo.db.categories.find().sort("category_name", 1)
 
-    return render_template("add_game.html", 
-                            username=get_user(),
-                            categories=categories)
+    return render_template("add_game.html",
+                           username=get_user(),
+                           categories=categories)
 
 
 @app.route("/edit_game/<game_id>", methods=["GET", "POST"])
 def edit_game(game_id):
+    """
+    Edit selected game
+    """
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
 
     if request.method == "POST":
@@ -233,14 +256,17 @@ def edit_game(game_id):
 
     categories = mongo.db.categories.find().sort("category_name", 1)
 
-    return render_template("edit_game.html", 
-                            username=get_user(), 
-                            game=game,
-                            categories=categories)
+    return render_template("edit_game.html",
+                           username=get_user(),
+                           game=game,
+                           categories=categories)
 
 
 @app.route("/delete_game/<game_id>")
 def delete_game(game_id):
+    """
+    Delete selected game
+    """
     mongo.db.games.remove({"_id": ObjectId(game_id)})
     flash("Game Successfully Deleted")
     return redirect(url_for("profile", username=get_user()))
@@ -248,21 +274,24 @@ def delete_game(game_id):
 
 @app.route("/display_game/<game_id>", methods=["GET"])
 def display_game(game_id):
-
+    """
+    This method returns the selected game and
+    reviews.
+    """
     game = mongo.db.games.find_one({"_id": ObjectId(game_id)})
 
-    reviews = list(mongo.db.reviews.find({"game_name":game["name"]}))
+    reviews = list(mongo.db.reviews.find({"game_name": game["name"]}))
 
-    return render_template("display_game.html", 
-                            username=get_user(), 
-                            game=game,
-                            reviews=reviews)
+    return render_template("display_game.html",
+                           username=get_user(),
+                           game=game,
+                           reviews=reviews)
 
 
 def display_games(game_list, curr_page, per_page):
     """
     Method to handle Pagination of games.
-    Give a list of games, the current page the user is on and 
+    Give a list of games, the current page the user is on and
     the number of games to display it returns a list of games
     """
 
@@ -296,4 +325,3 @@ if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
             debug=True)
-            

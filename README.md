@@ -127,7 +127,7 @@ From the structure above I was able to generate the below Wireframes for the sit
 - [W3 HTML Validator](https://validator.w3.org/) 
 - [W3 CSS Validator](https://jigsaw.w3.org/css-validator/)
 - [JShint](https://jshint.com/)
-- [PEP8 checker](http://pep8online.com/)
+- [PEP8 checker](http://pep8online.com/) - Fixed errors [View](readme_images/PEP8.txt)
 
 # Database and Schema
 ## MongoDB Setup
