@@ -288,13 +288,15 @@ def display_game(game_id):
                            reviews=reviews)
 
 
-@app.route("/delete_user/<user_id>", methods=["GET"])
-def delete_user(user_id):
+@app.route("/delete_user/<username>", methods=["GET"])
+def delete_user(username):
     """
     This method deletes the selected user, games and
     reviews.
     """
-    return render_template("login.html")
+    mongo.db.users.remove({"name": username})
+    flash("User has been removed")
+    return redirect(url_for("login"))
 
 def display_games(game_list, curr_page, per_page):
     """
