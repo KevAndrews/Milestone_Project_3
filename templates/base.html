@@ -28,7 +28,7 @@
                 <a href="#" data-target="mobile-demo" class="right sidenav-trigger"><i
                         class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    {% if username is defined and username|length %}
+                    {% if username is defined and username|length %}                        
                         <li><a id="profile" href="{{ url_for('profile', username=username) }}">{{ username }}'s Profile</a></li>
                         <li><a id="index" href="{{ url_for('index') }}">Home</a></li>
                         <li><a href="{{ url_for('logout') }}">Logout</a></li>

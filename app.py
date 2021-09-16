@@ -38,7 +38,8 @@ def index():
     return render_template("index.html",
                            games=display_games(games, page, per_page),
                            pagination=pagination,
-                           username=get_user())
+                           username=get_user(),
+                           acc_type=get_acc_type())
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -56,6 +57,7 @@ def login():
             if check_password_hash(existing_user["password"],
                                    request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
+                session["acc_type"] = existing_user["type"]
                 return redirect(url_for(
                     "profile", username=get_user()))
             else:
@@ -79,6 +81,7 @@ def logout():
     # remove user from session cookie
     flash("You have been logged out")
     session.pop("user")
+    session.pop("acc_type")
     return redirect(url_for("index"))
 
 
@@ -125,17 +128,25 @@ def profile(username):
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
 
+    users = list(mongo.db.users.find())
+
     reviews = list(mongo.db.reviews.find({"created_by": username}))
 
     games = list(mongo.db.games.find({"created_by": username}))
 
-    if session["user"]:
+    if session["user"] and get_acc_type() == "user":
         return render_template("profile.html",
                                username=username,
                                reviews=reviews,
                                games=games)
-
-    return redirect(url_for("login"))
+    elif session["user"] and get_acc_type() == "admin":
+        return render_template("admin.html",
+                               username=username,
+                               reviews=reviews,
+                               games=games,
+                               users=users)
+    else:
+        return redirect(url_for("login"))
 
 
 @app.route("/add_review", methods=["GET", "POST"])
@@ -153,13 +164,17 @@ def add_review():
         }
         mongo.db.reviews.insert_one(submit)
         flash("Review Successfully Added")
-        return redirect(url_for("profile", username=get_user()))
+        if get_acc_type() == "admin":
+            return redirect(url_for("admin", username=get_user()))
+        else:
+            return redirect(url_for("profile", username=get_user()))
 
     games = mongo.db.games.find().sort("name", 1)
 
     return render_template("add_review.html",
                            games=games,
-                           username=get_user())
+                           username=get_user(),
+                           acc_type=get_acc_type())
 
 
 @app.route("/edit_review/<review_id>", methods=["GET", "POST"])
@@ -178,13 +193,17 @@ def edit_review(review_id):
         }
         mongo.db.reviews.update({"_id": ObjectId(review_id)}, submit)
         flash("Review Successfully Updated")
-        return redirect(url_for("profile", username=get_user()))
+        if get_acc_type() == "admin":
+            return redirect(url_for("admin", username=get_user()))
+        else:
+            return redirect(url_for("profile", username=get_user()))
 
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
 
     return render_template("edit_review.html",
                            username=get_user(),
-                           review=review)
+                           review=review,
+                           acc_type=get_acc_type())
 
 
 @app.route("/delete_review/<review_id>")
@@ -194,7 +213,14 @@ def delete_review(review_id):
     """
     mongo.db.reviews.remove({"_id": ObjectId(review_id)})
     flash("Review Successfully Deleted")
-    return redirect(url_for("profile", username=get_user()))
+    if get_acc_type() == "admin":
+        return redirect(url_for("admin", 
+                        username=get_user(),
+                        acc_type=get_acc_type()))
+    else:
+        return redirect(url_for("profile", 
+                        username=get_user(),
+                        acc_type=get_acc_type()))
 
 
 @app.route("/add_game", methods=["GET", "POST"])
@@ -222,13 +248,21 @@ def add_game():
 
             mongo.db.games.insert_one(submit)
             flash("Game Successfully Added")
-            return redirect(url_for("profile", username=get_user()))
+            if get_acc_type() == "admin":
+                return redirect(url_for("admin", 
+                                username=get_user(),
+                                acc_type=get_acc_type()))
+            else:
+                return redirect(url_for("profile", 
+                            username=get_user(),
+                            acc_type=get_acc_type()))
 
     categories = mongo.db.categories.find().sort("category_name", 1)
 
     return render_template("add_game.html",
                            username=get_user(),
-                           categories=categories)
+                           categories=categories,
+                           acc_type=get_acc_type())
 
 
 @app.route("/edit_game/<game_id>", methods=["GET", "POST"])
@@ -253,14 +287,22 @@ def edit_game(game_id):
         }
         mongo.db.games.update({"_id": ObjectId(game_id)}, submit)
         flash("Game Successfully Updated")
-        return redirect(url_for("profile", username=get_user()))
+        if get_acc_type() == "admin":
+            return redirect(url_for("admin", 
+                            username=get_user(),
+                            acc_type=get_acc_type()))
+        else:
+            return redirect(url_for("profile", 
+                            username=get_user(),
+                            acc_type=get_acc_type()))
 
     categories = mongo.db.categories.find().sort("category_name", 1)
 
     return render_template("edit_game.html",
                            username=get_user(),
                            game=game,
-                           categories=categories)
+                           categories=categories,
+                           acc_type=get_acc_type())
 
 
 @app.route("/delete_game/<game_id>")
@@ -270,7 +312,14 @@ def delete_game(game_id):
     """
     mongo.db.games.remove({"_id": ObjectId(game_id)})
     flash("Game Successfully Deleted")
-    return redirect(url_for("profile", username=get_user()))
+    if get_acc_type() == "admin":
+        return redirect(url_for("admin", 
+                        username=get_user(),
+                        acc_type=get_acc_type()))
+    else:
+        return redirect(url_for("profile", 
+                        username=get_user(),
+                        acc_type=get_acc_type()))
 
 
 @app.route("/display_game/<game_id>", methods=["GET"])
@@ -286,16 +335,17 @@ def display_game(game_id):
     return render_template("display_game.html",
                            username=get_user(),
                            game=game,
-                           reviews=reviews)
+                           reviews=reviews,
+                           acc_type=get_acc_type())
 
 
-@app.route("/delete_user/<username>", methods=["GET"])
-def delete_user(username):
+@app.route("/delete_user/<user_id>", methods=["GET"])
+def delete_user(user_id):
     """
     This method deletes the selected user, games and
     reviews.
     """
-    mongo.db.users.remove({"name": username})
+    mongo.db.users.remove({"_id": ObjectId(user_id)})
     flash("User has been removed")
     return redirect(url_for("login"))
 
@@ -336,7 +386,19 @@ def get_user():
         return user
 
 
+def get_acc_type():
+    """
+    Method returns the account type in the Session
+    """
+    try:
+        acc_type = session["acc_type"]
+        return acc_type
+    except:
+        acc_type = ''
+        return acc_type
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=False)
+            debug=True)
