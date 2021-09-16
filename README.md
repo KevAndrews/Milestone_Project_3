@@ -28,20 +28,28 @@ Game Reviews is a website that allows users to search for Games that they would 
 # User Experience
 ## User stories
  -   ### First Time Visitor Goals
-        1. As a First Time Visitor, I want to easily understand the main purpose of the site.
-        2. As a First Time Visitor, I want to be able to easily navigate throughout the site and to contact the developer for more information.
-        3. As a First Time Visitor, I want to easily be able to sign-up
-        4. As a First Time Visitor, I want to be able to search for games
+       1. As a First Time Visitor, I want to easily understand the main purpose of the site.
+       2. As a First Time Visitor, I want to be able to easily navigate throughout the site.
+       3. As a First Time Visitor, I want to easily be able to sign-up
  -   ### Returning or Frequent Visitor Goals
-        1. As a Returning Visitor, I want to be able to log in.
-        2. As a Returning Visitor, I want to be able to log out.
-        3. As a Returning Visitor, I want to be able add a game.
-        4. As a Returning Visitor, I want to be able edit a game I have added.
-        5. As a Returning Visitor, I want to be able delete a game I have added.
-        6. As a Returning Visitor, I want to be able add a review.
-        7. As a Returning Visitor, I want to be able edit a review I have added.
-        8. As a Returning Visitor, I want to be able delete a review I have added.
-        9. As a Returning Visitor, I want to be able to delete my account.
+       1. As a Returning Visitor, I want to be able to log in.
+       2. As a Returning Visitor, I want to be able to log out.
+       3. As a Returning Visitor, I want to be able add a game.
+       4. As a Returning Visitor, I want to be able edit a game I have added.
+       5. As a Returning Visitor, I want to be able delete a game I have added.
+       6. As a Returning Visitor, I want to be able add a review.
+       7. As a Returning Visitor, I want to be able edit a review I have added.
+       8. As a Returning Visitor, I want to be able delete a review I have added.
+ -   ### Frequent Administrator Goals
+       1. As a Frequent Administrator, I want to be able to see all reviews.
+       2. As a Frequent Administrator, I want to be able to see all games.
+       3. As a Frequent Administrator, I want to be able to see all users.
+       4. As a Frequent Administrator, I want to be able to edit all reviews.
+       5. As a Frequent Administrator, I want to be able to edit all games.
+       6. As a Frequent Administrator, I want to be able to edit all users.
+       7. As a Frequent Administrator, I want to be able to delete all reviews.
+       8. As a Frequent Administrator, I want to be able to delete all games.
+       9. As a Frequent Administrator, I want to be able to delete all users.
 
 
 ## Design
@@ -177,7 +185,7 @@ The GitHub Repository can be cloned in the following way:
 2.	https://wallpaperaccess.com/80s-retro-games
 
 # Content
-The audio and images belong to documented third parties noted in Credits section above, all other content was written by the developer.
+The images belong to documented third parties noted in Credits section above.
 
 # Acknowledgements
 I would like to thank the team at the Code Institute for all the courses they provided that help me gain the knowledge I needed to build this game.
