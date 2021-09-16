@@ -130,16 +130,16 @@ def profile(username):
 
     users = list(mongo.db.users.find())
 
-    reviews = list(mongo.db.reviews.find({"created_by": username}))
-
-    games = list(mongo.db.games.find({"created_by": username}))
-
     if session["user"] and get_acc_type() == "user":
+        reviews = list(mongo.db.reviews.find({"created_by": username}))
+        games = list(mongo.db.games.find({"created_by": username}))
         return render_template("profile.html",
                                username=username,
                                reviews=reviews,
                                games=games)
     elif session["user"] and get_acc_type() == "admin":
+        reviews = list(mongo.db.reviews.find())
+        games = list(mongo.db.games.find())
         return render_template("admin.html",
                                username=username,
                                reviews=reviews,

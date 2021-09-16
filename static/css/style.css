@@ -291,7 +291,7 @@ nav .brand-logo {
 }
 
 .right {
-  align-content: right;
+  align-content:flex-end;
   margin-right: 5px;
 }
 
