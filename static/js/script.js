@@ -3,12 +3,13 @@ $(document).ready(function(){
     setTimeout(function() {
         $('.alert').fadeOut('slow');
     }, 2000);
+    /* Code for materializecss tab */
+    $('.tabs').tabs();
 
     /* Code from Flask Project */
     $('input#input_text, textarea#textarea2').characterCounter();
     $('.sidenav').sidenav();
     $(".collapsible").collapsible();
-    $(".tooltipped").tooltip();
     $("select").formSelect();
     $(".datepicker").datepicker({
         format: "dd mmmm, yyyy",

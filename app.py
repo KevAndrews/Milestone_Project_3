@@ -325,6 +325,9 @@ def display_games(game_list, curr_page, per_page):
 
 
 def get_user():
+    """
+    Method returns the user in the Session
+    """
     try:
         user = session["user"]
         return user

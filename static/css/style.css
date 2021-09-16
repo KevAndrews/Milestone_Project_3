@@ -54,6 +54,7 @@ nav li:hover {
   border-bottom: 2px solid #FF570A;
 }
 
+/* Custom Code for inputs */
 input[type=text]:not(.browser-default):focus:not([readonly]), 
 input[type=password]:not(.browser-default):focus:not([readonly]),
 input.valid[type=password]:not(.browser-default),
@@ -62,6 +63,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
   border-bottom: 1px solid #FF570A;
   box-shadow: 0 1px 0 0 #f44336;
 }
+
 
 input[type=text]:not(.browser-default):focus:not([readonly])+label, 
 input[type=password]:not(.browser-default):focus:not([readonly])+label,
@@ -84,12 +86,30 @@ input[type=file]::file-selector-button {
   color: white;
 }
 
-
 input[type=file]::file-selector-button:hover {
   background-color: #211a1dff;
   border: 2px solid #211a1dff;
 }
 
+/* Custom Code for Tabs*/
+.tabs .tab a:hover, .tabs .tab a.active {
+  background-color: #211a1dff;
+  color: white;
+}
+
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+  background-color: #211a1dff;
+  color: white;
+  border: 0;
+}
+
+.tabs .tab a {
+  color: #211a1dff;
+}
+
+.tabs .indicator {
+  background-color: #211a1dff;
+}
 
 /* Custom Code for the Title text container */
 .title {
@@ -183,6 +203,10 @@ nav .brand-logo {
 
 .activator {
   cursor: pointer;
+}
+
+.expand {
+ height: 100vh;
 }
 
 /* Style for Social links taken from https://www.w3schools.com/css/css_inline-block.asp */
